@@ -11,7 +11,7 @@ include("../sde_ibm.jl")
 include("../cme_ibm.jl")
 include("../discrete_ibm.jl")
 include("../discrete_cme_ibm.jl")
-include("../defaults.jl")
+include("defaults.jl")
 
 ## Discrete model switching rates  (on drug only)
 r₀₁ = 1.0

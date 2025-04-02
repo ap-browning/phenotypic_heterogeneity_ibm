@@ -13,7 +13,7 @@ using Loess
 include("../pde_ibm.jl")
 include("../sde_ibm.jl")
 include("../cme_ibm.jl")
-include("../defaults.jl")
+include("defaults.jl")
 include("../default_setup.jl")
 
 ## SIMULATE A HUGE EXPERIMENT, RECORD CELL BIRTHS AND DEATH TIMES

@@ -14,7 +14,7 @@ using .Threads
 include("../pde_ibm.jl")
 include("../sde_ibm.jl")
 include("../cme_ibm.jl")
-include("../defaults.jl")
+include("defaults.jl")
 include("../default_setup.jl")
 
 # Setup problem
@@ -26,13 +26,13 @@ tmax = 28.0
 function get_rates(β)
     x₀ = Normal(0.0,β / sqrt(2ν))
     xpde,_,ppde = solve_pde(λ,v,d,β;tmax,n₀,x₀,npt=1001,xlim=(-1.0,2.0));
-    rbirth(t) = trap(ppde(t) .* max.(0.0,λ.(xpde,d(t))),xpde)
-    rdeath(t) = -trap(ppde(t) .* min.(0.0,λ.(xpde,d(t))),xpde) 
+    rbirth(t) = trap(ppde(t) .* max.(0.0,λ.(xpde(t),d(t))),xpde(t))
+    rdeath(t) = -trap(ppde(t) .* min.(0.0,λ.(xpde(t),d(t))),xpde(t)) 
     return rbirth,rdeath
 end
 
 α = [0.1,0.2,0.5,1.0,2.0]
-rate_fcns = [get_rates(β * αᵢ) for αᵢ in α]
+rate_fcns = [get_rates(β * αᵢ) for αᵢ in α];
 
 fig4a = plot([r[1] for r in rate_fcns],xlim=(0.0,14.0),lw=2.0,palette=palette(:YlGn)[3:end],label=α')
 plot!(fig4a,rate_fcns[4][1],lw=2.0,c=:black,ls=:dash,label="")

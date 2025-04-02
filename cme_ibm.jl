@@ -66,3 +66,10 @@ function cme_quantile_plot(N,Q;c=:black)
     plt = plot(Q.t,qnt[end,:],frange=qnt[1,:];c,α=0.1,lw=0.0,label="cme")
     plot!(plt,Q.t,qnt[end-1,:],frange=qnt[2,:];c,α=0.1,lw=0.0,label="")
 end
+
+function solve_cme(λ::Function,v::Function,d::Function,β::Number;n₀=1,Nmax=150,tmax=28.0,kwargs...)
+    # Solve PDE
+    xpde,npde,ppde = solve_pde(λ,v,d,β;kwargs...)
+    # Solve CME
+    return solve_cme(xpde,ppde,λ,d;n₀,tmax,Nmax)
+end

@@ -15,7 +15,7 @@ using Distributions
 include("../pde_ibm.jl")
 include("../sde_ibm.jl")
 include("../cme_ibm.jl")
-include("../defaults.jl")
+include("defaults.jl")
 include("../default_setup.jl")
 
 ## SETUP TREATMENT SCHEDULE(S)
