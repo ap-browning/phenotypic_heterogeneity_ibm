@@ -1,6 +1,6 @@
 #==*=*=*=*=*=*=*
     
-    FIGURE S3
+    FIGURE S5
 
     Inference using a lot of data (β becomes identifiable)
 

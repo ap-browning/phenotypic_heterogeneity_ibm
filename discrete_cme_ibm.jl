@@ -1,11 +1,15 @@
 using DifferentialEquations
 
-function solve_discrete_cme(λ,δ,r,d;n₀=[1,0],Nmax=100,tmax=28.0)
+function solve_discrete_cme(λ,δ,r,d;n₀=[1,0],Nmax=100,tmax=28.0,ret_full=false,dt=0.01)
 
     # Domain and initial condition
     N = 0:Nmax
     if isa(n₀,Distribution)
         q₀ = [pdf(n₀,[i,j]) for i in N, j in N]
+    elseif isa(n₀,Tuple)
+        q,Ndist = n₀
+        fpdf(n₀,n₁) = pdf(Binomial(n₀+n₁,q),n₁) * pdf(Ndist,n₀+n₁)
+        q₀ = [fpdf(i,j) for i in N, j in N]
     else
         n₁₀,n₂₀ = n₀
         q₀ = zeros(length(N),length(N)); q₀[n₁₀+1,n₂₀+1] = 1.0
@@ -33,7 +37,11 @@ function solve_discrete_cme(λ,δ,r,d;n₀=[1,0],Nmax=100,tmax=28.0)
         end
     end
 
-    sol = solve(ODEProblem(rhs!,q₀,(0.0,tmax)),Heun(),dt=0.01)
+    sol = solve(ODEProblem(rhs!,q₀,(0.0,tmax)),Heun();dt)
+
+    if ret_full
+        return N, sol
+    end
 
     q = t -> begin
         Q = sol(t)

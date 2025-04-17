@@ -34,7 +34,7 @@ end
 α = [0.1,0.2,0.5,1.0,2.0]
 rate_fcns = [get_rates(β * αᵢ) for αᵢ in α];
 
-fig4a = plot([r[1] for r in rate_fcns],xlim=(0.0,14.0),lw=2.0,palette=palette(:YlGn)[3:end],label=α')
+fig4a = plot([r[1] for r in rate_fcns],xlim=(0.0,14.0),lw=2.0,palette=palette(:YlGnBu_8)[3:end],label=α')
 plot!(fig4a,rate_fcns[4][1],lw=2.0,c=:black,ls=:dash,label="")
 plot!(ylabel="Birth rate")
 

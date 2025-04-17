@@ -18,7 +18,7 @@ function solve_cme(x::Function,p,λ,d;kwargs...)
 
 end
 solve_cme(x::Number,args...;kwargs...) = solve_cme(t -> x,args...;kwargs...)
-function solve_cme(rbirth,rdeath;n₀=1,Nmax=150,tmax=28.0)
+function solve_cme(rbirth,rdeath;n₀=1,Nmax=150,tmin=0.0,tmax=28.0,saveat=(),tstops=[])
 
         # Domain and initial condition
         N = 0:Nmax
@@ -44,7 +44,7 @@ function solve_cme(rbirth,rdeath;n₀=1,Nmax=150,tmax=28.0)
         end
     
         # Solve
-        sol = solve(ODEProblem(rhs!,q₀,(0.0,tmax)))
+        sol = solve(ODEProblem(rhs!,q₀,(tmin,tmax));saveat,tstops)
         
         return N,sol
 

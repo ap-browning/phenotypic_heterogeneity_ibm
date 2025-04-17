@@ -56,7 +56,7 @@ function loglike(p)
     return ll
 end
 
-## (a) MCMC for all parameters
+## MCMC for all parameters
 logpost(p) = insupport(prior,p) ? loglike(p) + logpdf(prior,p) : -Inf
 @time res1 = adaptive_rwm(p, logpost, 10000; algorithm=:aswam);
 
